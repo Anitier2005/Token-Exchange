@@ -1,0 +1,14 @@
+{
+  "name": "token-exchange",
+  "version": "1.0.0",
+  "private": true,
+  "description": "词元交易所（Token Futures Exchange）",
+  "scripts": {
+    "install:all": "npm --prefix server install && npm --prefix web install",
+    "db:init": "npm --prefix server run db:init",
+    "db:seed": "npm --prefix server run db:seed",
+    "server": "npm --prefix server run dev",
+    "web": "npm --prefix web run dev",
+    "build:web": "npm --prefix web run build"
+  }
+}
