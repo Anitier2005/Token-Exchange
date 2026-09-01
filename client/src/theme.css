@@ -1,0 +1,56 @@
+.price-up { color: #e03131; font-weight: 600; }
+.price-down { color: #0ca678; font-weight: 600; }
+.price-flat { color: #495057; font-weight: 600; }
+.mono { font-variant-numeric: tabular-nums; font-family: 'JetBrains Mono', Consolas, monospace; }
+.quote-cell { font-size: 16px; }
+
+/* 响应式基础：任何视口下禁止横向拖拽 */
+html, body {
+  max-width: 100%;
+  overflow-x: hidden;
+}
+body { margin: 0; }
+#root { min-height: 100vh; }
+
+.page {
+  padding: 16px;
+  max-width: 1280px;
+  margin: 0 auto;
+  width: 100%;
+  box-sizing: border-box;
+  overflow-x: hidden;
+}
+
+/* 侧边栏 / 卡片在窄屏自适应 */
+.app-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 8px;
+  padding: 0 16px;
+  background: #12294d;
+  position: sticky;
+  top: 0;
+  z-index: 100;
+  flex-wrap: wrap;
+}
+.app-title {
+  color: #fff;
+  font-size: 18px;
+  font-weight: 700;
+  white-space: nowrap;
+}
+
+/* 账户卡片 */
+.acct-card { cursor: pointer; transition: box-shadow .2s, border-color .2s; }
+.acct-card:hover { box-shadow: 0 4px 16px rgba(0,0,0,.12); border-color: #1a3a6b; }
+.acct-card .acct-id { color: #999; font-size: 12px; }
+
+/* 深度表 */
+.depth-row { display: flex; justify-content: space-between; padding: 1px 0; font-size: 12px; }
+
+/* 表格在小屏下宽度约束由 antd scroll.x 处理 */
+@media (max-width: 768px) {
+  .page { padding: 12px; }
+  .quote-cell { font-size: 14px; }
+}
