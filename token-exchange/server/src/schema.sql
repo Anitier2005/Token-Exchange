@@ -66,6 +66,16 @@ CREATE TABLE IF NOT EXISTS futures (
   created_at TIMESTAMPTZ NOT NULL DEFAULT now()
 );
 
+-- 提供方提交的大模型接口登记
+CREATE TABLE IF NOT EXISTS provider_endpoints (
+  id SERIAL PRIMARY KEY,
+  provider_id INT NOT NULL REFERENCES users(id) ON DELETE CASCADE,
+  endpoint TEXT NOT NULL,
+  api_key TEXT,
+  note TEXT,
+  created_at TIMESTAMPTZ NOT NULL DEFAULT now()
+);
+
 -- 提供方价格设置记录（按频率由管理员配置）
 CREATE TABLE IF NOT EXISTS price_settings (
   id SERIAL PRIMARY KEY,

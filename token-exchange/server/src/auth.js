@@ -34,29 +34,28 @@ export async function getUserByToken(token) {
   return rows[0] || null;
 }
 
-// ---------- Express 中间件 ----------
 export function extractToken(req) {
   const h = req.headers.authorization || '';
   if (h.startsWith('Bearer ')) return h.slice(7);
   return req.query.token || null;
 }
 
-export function authRequired(req, res, next) {
-  getUserByToken(extractToken(req))
-    .then((user) => {
-      if (!user) return res.status(401).json({ error: '未登录或会话已失效' });
-      if (user.status === 'disabled') return res.status(403).json({ error: '账户已被禁用' });
-      req.user = user;
-      next();
-    })
-    .catch(next);
+// ---------- Fastify 鉴权 ----------
+export async function authHook(req, reply) {
+  const user = await getUserByToken(extractToken(req));
+  if (!user) {
+    return reply.code(401).send({ error: '未登录或会话已失效' });
+  }
+  if (user.status === 'disabled') {
+    return reply.code(403).send({ error: '账户已被禁用' });
+  }
+  req.user = user;
 }
 
 export function roleRequired(...roles) {
-  return (req, res, next) => {
+  return async (req, reply) => {
     if (!roles.includes(req.user.role)) {
-      return res.status(403).json({ error: '无权限访问该资源' });
+      return reply.code(403).send({ error: '无权限访问该资源' });
     }
-    next();
   };
 }
