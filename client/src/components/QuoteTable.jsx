@@ -125,7 +125,8 @@ export function Sparkline({ data, width = 130, height = 32, stroke = 1.5 }) {
   const up = data[data.length - 1] >= data[0];
   const color = up ? '#e03131' : '#0ca678';
   return (
-    <svg width={width} height={height} style={{ maxWidth: '100%' }}>
+    <svg width={width} height={height} viewBox={`0 0 ${width} ${height}`} preserveAspectRatio="none"
+      style={{ maxWidth: '100%', display: 'block', overflow: 'hidden' }}>
       <polyline points={pts} fill="none" stroke={color} strokeWidth={stroke} />
     </svg>
   );

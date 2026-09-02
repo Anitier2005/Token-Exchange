@@ -83,18 +83,18 @@ export default function App() {
   );
 
   return (
-    <Layout style={{ minHeight: '100vh', minWidth: 0 }}>
+    <Layout style={{ minHeight: '100vh', minWidth: 0, maxWidth: '100vw', overflowX: 'hidden' }}>
       <Header className="app-header">
         <div style={{ display: 'flex', alignItems: 'center', gap: 12, flex: 1, minWidth: 0 }}>
           {isMobile && (
             <Button type="text" icon={<MenuOutlined />} onClick={() => setMenuOpen(true)}
               style={{ color: '#fff' }} />
           )}
-          <span className="app-title">⬡ 词元交易所</span>
+          <span className="app-title" style={{ whiteSpace: 'nowrap' }}>⬡ 词元交易所</span>
           {!isMobile && nav}
         </div>
-        <div style={{ display: 'flex', alignItems: 'center', gap: 8, color: '#fff', whiteSpace: 'nowrap', flexWrap: 'wrap' }}>
-          <span style={{ fontSize: 13 }}>
+        <div style={{ display: 'flex', alignItems: 'center', gap: 8, color: '#fff', whiteSpace: 'nowrap' }}>
+          <span style={{ fontSize: 13, overflow: 'hidden', textOverflow: 'ellipsis', maxWidth: 240 }}>
             {ROLE_LABEL[user.role]} · {user.displayName || user.email}
           </span>
           <Button size="small" icon={<LogoutOutlined />} onClick={logout} ghost>退出</Button>
@@ -103,7 +103,7 @@ export default function App() {
       <Drawer title="导航" placement="left" open={menuOpen} onClose={() => setMenuOpen(false)} width={240} styles={{ body: { padding: 0 } }}>
         {nav}
       </Drawer>
-      <Content style={{ minWidth: 0 }}>
+      <Content style={{ minWidth: 0, maxWidth: '100vw', overflowX: 'hidden' }}>
         {user.role === 'trader' && <TraderView user={user} tab={tab} />}
         {user.role === 'provider' && <ProviderView user={user} tab={tab} />}
         {user.role === 'receiver' && <ReceiverView user={user} tab={tab} />}
