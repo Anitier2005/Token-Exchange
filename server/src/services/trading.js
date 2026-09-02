@@ -176,6 +176,18 @@ export async function fillOrder(order, fillPrice) {
     [fillPrice, fee, tax, realizedPnl, order.id]
   ))[0];
 
+  // 成交事件推动行情价格（真实引擎：价格仅在这里变化）
+  try {
+    await engine.onFill({
+      futureId: order.future_id,
+      side: order.side,
+      fillPrice,
+      volume: order.volume,
+    });
+  } catch (e) {
+    console.error(`[trading] onFill error:`, e.message);
+  }
+
   const message = closeVol > 0
     ? `成交：开仓 ${openVol} 手，平仓 ${closeVol} 手${realizedPnl >= 0 ? '，盈利' : '，亏损'} ${Math.abs(realizedPnl).toFixed(2)}`
     : `成交：开仓 ${vol} 手 @ ${fillPrice}`;

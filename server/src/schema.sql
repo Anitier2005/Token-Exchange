@@ -67,6 +67,10 @@ CREATE TABLE IF NOT EXISTS futures (
   last_price NUMERIC(18,6) NOT NULL DEFAULT 1,
   prev_close NUMERIC(18,6) NOT NULL DEFAULT 1,
   day_open NUMERIC(18,6) NOT NULL DEFAULT 1,
+  day_high NUMERIC(18,6),
+  day_low NUMERIC(18,6),
+  tick_size NUMERIC(18,6) NOT NULL DEFAULT 0.0001, -- 最小变动价位
+  hands_per_tick INT NOT NULL DEFAULT 10,            -- 每多少手推动一个 tick 的盘面深度
   halted BOOLEAN NOT NULL DEFAULT FALSE,
   halt_reason TEXT,
   created_at TIMESTAMPTZ NOT NULL DEFAULT now()
